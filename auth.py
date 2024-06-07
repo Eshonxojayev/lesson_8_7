@@ -86,3 +86,14 @@ async def users_data(status_code=status.HTTP_200_OK):
         for user in users
     ]
     return jsonable_encoder(context)
+
+@auth_router.get("/")
+async def auth(Authorize: AuthJWT=Depends()):
+    try:
+        Authorize.jwt_required()
+    except:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Token")
+
+    return {
+        "message": "This is auth page"
+    }

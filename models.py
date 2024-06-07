@@ -3,6 +3,12 @@ from sqlalchemy.orm import relationship
 from sqlalchemy_utils.types import ChoiceType
 from database import Base
 
+from fastapi_jwt_auth import AuthJWT
+
+@AuthJWT.load_config
+def config():
+    return JwtModel()
+
 class User(Base):
     __tablename__ = 'users'
 
